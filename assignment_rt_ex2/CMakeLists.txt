@@ -20,7 +20,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(turtlesim REQUIRED)
+find_package(gazebo_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -28,13 +31,14 @@ find_package(turtlesim REQUIRED)
 add_executable(robot_moving src/robot_moving.cpp)
 
 # Collega le librerie necessarie
-ament_target_dependencies(robot_moving rclcpp std_msgs geometry_msgs turtlesim)
+ament_target_dependencies(robot_moving rclcpp std_msgs geometry_msgs nav_msgs gazebo_msgs tf2)
 
 # Installa l'eseguibile
 install(TARGETS
   robot_moving
   DESTINATION lib/${PROJECT_NAME}
 )
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
