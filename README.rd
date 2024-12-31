@@ -75,17 +75,8 @@ The **`RobotMoving`** class handles robot movement and interaction within the Ga
 #### Generated RQT Graph
 To visualize the node and topic connections in this package, the following graph has been generated:
 
-![RQT Graph](./graph.png)
-
-*(The image above represents the node-to-topic connections and interactions.)*
+![RQT Graph](./grafo_rt1_ex2.png)
 
 ---
 
-### 2. **Creazione del Grafo**
-Se hai generato il grafo usando il comando `ros2 graph --dot`, salva il file immagine come `graph.png` seguendo questi passaggi:
-
-1. Esegui:
-   ```bash
-   ros2 graph --dot > graph.dot
-   dot -Tpng graph.dot -o graph.png
 
