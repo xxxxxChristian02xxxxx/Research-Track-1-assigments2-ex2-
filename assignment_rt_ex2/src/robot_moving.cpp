@@ -46,28 +46,28 @@ private:
 		geometry_msgs::msg::Twist final_vel;
 		float radius = 0.5;
 
-
-		if (pos_x_ > 8 - radius) {
-
-			final_vel.linear.x = robot_vel_.linear.x;  
-			final_vel.angular.z = robot_vel_.linear.x / radius; 
-		} else if (pos_x_ < -8 + radius) {
-
-			final_vel.linear.x = robot_vel_.linear.x;
-			final_vel.angular.z = -robot_vel_.linear.x / radius;  
-		}  else if ((pos_y_ >= 10 && pos_y_ <= 13)  || (pos_y_ <= -10 && pos_y_ >= -13) || (pos_x_>= 13 && pos_x_ <= 16) || (pos_x_ <=-13 && pos_x_ >= -16)) {
-
-
-			final_vel.linear.x = 0;
-			final_vel.linear.y = 0;
-
-		}else{
-
-			final_vel.linear.x = robot_vel_.linear.x;
-			final_vel.angular.z = 0.0;  
-			
-		}
-
+	if (pos_x_ > 8 - radius) {
+	    final_vel.linear.x = robot_vel_.linear.x;  
+	    final_vel.angular.z = robot_vel_.linear.x / radius; 
+	} else if (pos_x_ < -8 + radius) {
+	    final_vel.linear.x = robot_vel_.linear.x;
+	    final_vel.angular.z = -robot_vel_.linear.x / radius;  
+	} else if (pos_y_ > 8 - radius) {
+	    final_vel.linear.x = robot_vel_.linear.x;  
+	    final_vel.angular.z = robot_vel_.linear.x / radius;  
+	} else if (pos_y_ < -8 + radius) {
+	    final_vel.linear.x = robot_vel_.linear.x;  
+	    final_vel.angular.z = -robot_vel_.linear.x / radius;  
+	} else if ((pos_y_ >= 10 && pos_y_ <= 13) || 
+		   (pos_y_ <= -10 && pos_y_ >= -13) || 
+		   (pos_x_ >= 13 && pos_x_ <= 16) || 
+		   (pos_x_ <= -13 && pos_x_ >= -16)) {
+	    final_vel.linear.x = 0;
+	    final_vel.linear.y = 0;
+	} else {
+	    final_vel.linear.x = robot_vel_.linear.x;
+	    final_vel.angular.z = 0.0;  
+	}
 		
 		
 
