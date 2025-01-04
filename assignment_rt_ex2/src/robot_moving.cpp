@@ -10,9 +10,6 @@
 
 
 
-using std::placeholders::_1;
-
-
 class robot_pathway:public rclcpp::Node
 {
 public:
@@ -32,9 +29,9 @@ public:
 	
 
 	
-
+	// function to set velocty
 	void set_velocity(geometry_msgs::msg::Twist vel){
-		RCLCPP_INFO(this->get_logger(), "settatt velocita %f %f",vel.linear.x, vel.linear.y);
+		//RCLCPP_INFO(this->get_logger(), "settatt velocita %f %f",vel.linear.x, vel.linear.y);
 		robot_vel_=vel;
 		publish_velocity();
 	}		
@@ -42,9 +39,11 @@ public:
 		publisher_robot_velocity_->publish(robot_vel_);
 	}
 private:
+	// movement as S shape
 	void move_callback(){
 		geometry_msgs::msg::Twist final_vel;
 		float radius = 0.5;
+
 
 	if (pos_x_ > 8 - radius) {
 	    final_vel.linear.x = robot_vel_.linear.x;  
@@ -75,13 +74,13 @@ private:
 		publish_velocity();
 	}
 
-	
+	// callback for position
 	void get_pos_callback(const nav_msgs::msg::Odometry::SharedPtr msg){
 
 		pos_x_= msg->pose.pose.position.x;
 		pos_y_= msg->pose.pose.position.y;
 	}
-
+	// callback for velocity
 	void get_vel_callback(const geometry_msgs::msg::Twist::SharedPtr msg){
 
 		robot_vel_ = *msg;
