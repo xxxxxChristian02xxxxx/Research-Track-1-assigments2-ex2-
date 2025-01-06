@@ -19,8 +19,8 @@ public:
 		publisher_robot_velocity_ =this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel",10);
 		
 		//initialization subscriber
-		subscription_robot_position_ = this->create_subscription<nav_msgs::msg::Odometry>("/odom", 10, std::bind(&robot_pathway::get_pos_callback, this, _1));
-		subscription_robot_velocity_ = this->create_subscription<geometry_msgs::msg::Twist>("/cmd_vel",10, std::bind(&robot_pathway::get_vel_callback, this, _1));
+		subscription_robot_position_ = this->create_subscription<nav_msgs::msg::Odometry>("/odom", 10, std::bind(&robot_pathway::get_pos_callback, this, std::placeholders::_1));
+		subscription_robot_velocity_ = this->create_subscription<geometry_msgs::msg::Twist>("/cmd_vel",10, std::bind(&robot_pathway::get_vel_callback, this, std::placeholders::_1));
 
 		
 		timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&robot_pathway::move_callback, this));
@@ -42,7 +42,7 @@ private:
 	// movement as S shape
 	void move_callback(){
 		geometry_msgs::msg::Twist final_vel;
-		float radius = 0.5;
+		float radius = 0.7;
 
 
 	if (pos_x_ > 8 - radius) {
