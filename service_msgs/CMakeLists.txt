@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(assignment_rt_ex2)
+project(service_msgs)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -15,66 +15,26 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-
-
-
-#find dependencies
+# find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(gazebo_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(service_msgs REQUIRED)
-
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-add_executable(robot_moving src/robot_moving.cpp)
-add_executable(CustomServerGetRoPo src/CustomServerGetRoPo.cpp)
-add_executable(StopStartService src/StopStartService.cpp)
 
-# Collega le librerie necessarie
-ament_target_dependencies(
-  robot_moving
-  rclcpp
-  std_msgs
-  geometry_msgs
-  nav_msgs
-  gazebo_msgs
-  tf2
-  service_msgs
-  
+
+find_package(rosidl_default_generators REQUIRED)
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/VelocitySet.srv"
+  "srv/GetRobotPosition.srv"
+  "srv/StopStart.srv"
+
+  "msg/Num.msg"
+  DEPENDENCIES geometry_msgs # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
 )
-ament_target_dependencies(
-  CustomServerGetRoPo
-  rclcpp
-  std_msgs
-  geometry_msgs
-  nav_msgs
-  gazebo_msgs
-  tf2
-  service_msgs
-)
-ament_target_dependencies(
-  StopStartService
-  rclcpp
-  std_msgs
-  geometry_msgs
-  nav_msgs
-  gazebo_msgs
-  tf2
-  service_msgs
-)
-# Installa l'eseguibile
-install(TARGETS
-  robot_moving
-  CustomServerGetRoPo
-  StopStartService
-  DESTINATION lib/${PROJECT_NAME}
-)
+
+ament_export_dependencies(rosidl_default_runtime)
 
 
 if(BUILD_TESTING)
